@@ -199,25 +199,73 @@ Item {
         NumberAnimation { duration: 500; easing.type: Easing.OutCubic }
       }
 
-      // Concentric signal rings and ticks give the idle state a subtle,
+      // Concentric signal rings and rotating dials give the idle state a subtle,
       // sci-fi instrument-panel feeling without needing image assets.
-      Repeater {
-        model: 12
-        Rectangle {
-          required property int index
-          width: 2
-          height: index % 3 === 0 ? 19 : 10
-          x: interfaceCore.width / 2 - width / 2
-          y: interfaceCore.height / 2 - interfaceCore.width / 2 + 13
-          radius: width / 2
-          color: Color.lock.borderActive
-          opacity: root.passwordMode ? 0 : (index % 3 === 0 ? 0.92 : 0.48)
-          transform: Rotation {
-            origin.x: width / 2
-            origin.y: interfaceCore.height / 2 - y
-            angle: index * 30
+      Item {
+        id: dialRotorOuter
+        anchors.fill: parent
+        opacity: root.passwordMode ? 0 : 1
+        Behavior on opacity { NumberAnimation { duration: 180 } }
+
+        RotationAnimation on rotation {
+          from: 0
+          to: 360
+          duration: 60000
+          loops: Animation.Infinite
+          running: !root.passwordMode && root.visible
+        }
+
+        Repeater {
+          model: 12
+          Rectangle {
+            required property int index
+            width: 2
+            height: index % 3 === 0 ? 19 : 10
+            x: dialRotorOuter.width / 2 - width / 2
+            y: dialRotorOuter.height / 2 - dialRotorOuter.width / 2 + 13
+            radius: width / 2
+            color: Color.lock.borderActive
+            opacity: index % 3 === 0 ? 0.92 : 0.48
+            transform: Rotation {
+              origin.x: width / 2
+              origin.y: dialRotorOuter.height / 2 - y
+              angle: index * 30
+            }
           }
-          Behavior on opacity { NumberAnimation { duration: 180 } }
+        }
+      }
+
+      Item {
+        id: dialRotorInner
+        anchors.fill: parent
+        opacity: root.passwordMode ? 0 : 0.4
+        Behavior on opacity { NumberAnimation { duration: 180 } }
+
+        RotationAnimation on rotation {
+          from: 360
+          to: 0
+          duration: 90000
+          loops: Animation.Infinite
+          running: !root.passwordMode && root.visible
+        }
+
+        Repeater {
+          model: 24
+          Rectangle {
+            required property int index
+            width: 1.5
+            height: index % 6 === 0 ? 8 : 4
+            x: dialRotorInner.width / 2 - width / 2
+            y: dialRotorInner.height / 2 - dialRotorInner.width / 2 + 25
+            radius: width / 2
+            color: Color.lock.borderActive
+            opacity: index % 6 === 0 ? 0.8 : 0.35
+            transform: Rotation {
+              origin.x: width / 2
+              origin.y: dialRotorInner.height / 2 - y
+              angle: index * 15
+            }
+          }
         }
       }
 

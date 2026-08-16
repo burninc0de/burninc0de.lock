@@ -15,9 +15,9 @@ instrument-panel design.
   fingerprint auth via `omarchy-lock-fingerprint` when fprintd reports an
   enrolled finger.
 - **Animated instrument panel** — a circular control dial with concentric
-  signal rings, ticking tick marks, and a braille "noise" loader that shimmers
-  like live static. Any key or click folds the whole dial fluidly into the
-  password field.
+  signal rings, slowly rotating precision dials, and a braille "noise" loader
+  that shimmers like live static. Any key or click folds the whole dial fluidly
+  into the password field.
 - **Live telemetry HUD** — the idle screen keeps an eye on your machine: time,
   CPU core temperature, memory usage, uptime, and load average.
 - **Password entry** — any key or click folds the circular interface into the
