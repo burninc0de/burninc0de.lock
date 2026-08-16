@@ -37,8 +37,6 @@ Item {
   property string lastEventAt: ""
   property bool strandedLock: false
   property bool strandedLockResolved: false
-  property string greeting: "bye"
-  property double lockedAt: 0
   property bool displayBlanked: false
 
   readonly property bool locked: lockRequested || sessionLock.locked || sessionLock.secure
@@ -144,9 +142,7 @@ Item {
 
     resetAuthenticationState()
     lockRequested = true
-    lockedAt = Date.now()
     displayBlanked = false
-    greeting = "bye"
     armBlankTimer()
     logEvent("lock-requested")
     queueSessionLock()
@@ -181,9 +177,6 @@ Item {
   }
 
   function runWake() {
-    if (displayBlanked || (lockRequested && lockedAt > 0 && Date.now() - lockedAt > 8000)) {
-      greeting = "welcome"
-    }
     displayBlanked = false
     if (!wakeProcess.running) wakeProcess.running = true
     if (lockRequested) armBlankTimer()
@@ -303,7 +296,7 @@ Item {
         loadBackground: root.locked
         passwordText: root.enteredPassword
         userName: root.userName
-        greeting: root.greeting
+        greeting: "hello"
         onPasswordTextEdited: function(password) { root.enteredPassword = password }
         onSubmitPassword: function(password) { root.submitPassword(password) }
         onClearFailureRequested: root.failureMessage = ""
@@ -339,7 +332,7 @@ Item {
       loadBackground: root.previewVisible
       passwordText: ""
       userName: root.userName
-      greeting: "welcome"
+      greeting: "hello"
     }
 
     MouseArea {
@@ -479,7 +472,6 @@ Item {
       // blank the freshly woken unlock screen under the user. Wall-clock time
       // exposes the gap: take a fresh run-up instead of blanking.
       if (Date.now() - armedAt > interval + 2000) {
-        root.greeting = "welcome"
         root.armBlankTimer()
         return
       }
@@ -527,10 +519,6 @@ Item {
     target: Quickshell
     function onScreensChanged() {
       root.requestSessionLock()
-
-      if (root.lockRequested && root.lockedAt > 0 && Date.now() - root.lockedAt > 5000) {
-        root.greeting = "welcome"
-      }
 
       // A monitor still coming up has no workspace, so cannot answer yet.
       strandedLockRetryTimer.rearm()

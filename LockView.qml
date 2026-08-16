@@ -22,7 +22,7 @@ Item {
   property string systemUptime: "--:--"
   property string loadAverage: "--.--"
   property string userName: ""
-  property string greeting: "welcome"
+  property string greeting: "hello"
   property var telemetryNow: new Date()
   // Each lock begins as a calm welcome screen. Any pointer or keyboard input
   // folds the circular interface into the password field.

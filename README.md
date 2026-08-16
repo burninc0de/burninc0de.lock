@@ -3,16 +3,14 @@
 A Quickshell session lock screen for [Omarchy](https://omarchy.org/), forked
 from the built-in `omarchy.lock`. It keeps Omarchy's separate password and
 fingerprint PAM flows but replaces the interface with a circular, sci-fi
-instrument-panel design that greets you when you leave — and welcomes you back
-when you return.
+instrument-panel design.
 
 ![LockSigil](preview.png)
 
 ## Features
 
-- **Says goodbye, then hello** — the screen bids you farewell with "bye
-  &lt;name&gt;" as it locks, then greets "welcome &lt;name&gt;" when you come back
-  from sleep, suspend, or a blanked display.
+- **Personalized greeting** — greets you with "hello &lt;name&gt;" on the idle
+  lock screen.
 - **Two PAM flows** — password auth via `omarchy-lock-password`, and
   fingerprint auth via `omarchy-lock-fingerprint` when fprintd reports an
   enrolled finger.
@@ -28,7 +26,7 @@ when you return.
 - **Fingerprint hint** — an icon sits inside the field's right edge when a
   sensor is enrolled, matching hyprlock's placement.
 - **Display blanking** — after 30 seconds of idle input the display is blanked
-  via `omarchy-brightness-*`; any input wakes it with a "welcome" greeting.
+  via `omarchy-brightness-*`; any input wakes it.
 - **Stranded-lock recovery** — adopts an orphaned session lock left behind
   after a shell restart, as long as the PAM config is present.
 
