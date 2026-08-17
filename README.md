@@ -1,4 +1,4 @@
-# LockSigil
+# LockSigil - Lockscreen Plugin
 
 A Quickshell session lock screen for [Omarchy](https://omarchy.org/), forked
 from the built-in `omarchy.lock`. It keeps Omarchy's separate password and
